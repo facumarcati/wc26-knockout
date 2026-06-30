@@ -29,6 +29,7 @@ import { useHoverIntent } from "../hooks/useHoverIntent";
 import { TeamFlag } from "./TeamFlag";
 import { AdvanceAnimator } from "./TravelingTeam";
 import "./CirclePoints.css";
+import { getCrestPath } from "../lib/flags";
 
 export type { DrawPosition } from "../lib/drawTree";
 
@@ -163,11 +164,20 @@ function getTooltipSide(pointX: number): "left" | "right" {
   return pointX < 100 - TOOLTIP_EDGE_THRESHOLD ? "left" : "right";
 }
 
+function getRadialDirection(point: Point): { x: number; y: number } {
+  const dx = point.x - 50;
+  const dy = point.y - 50;
+  const length = Math.hypot(dx, dy) || 1;
+  return { x: dx / length, y: dy / length };
+}
+
 type FlagWithTooltipProps = {
   team: Team;
   side: "left" | "right";
   inactive?: boolean;
   beatBy?: Team | null;
+  showConfederation?: boolean;
+  radialDirection?: { x: number; y: number } | null;
 };
 
 function FlagWithTooltip({
@@ -175,6 +185,8 @@ function FlagWithTooltip({
   side,
   inactive = false,
   beatBy,
+  showConfederation = false,
+  radialDirection = null,
 }: FlagWithTooltipProps) {
   const anchorRef = useRef<HTMLSpanElement>(null);
   const [focusedVisible, setFocusedVisible] = useState(false);
@@ -282,6 +294,24 @@ function FlagWithTooltip({
             className="circle-points__flag circle-points__flag--inactive"
           />
         </span>
+        {showConfederation && radialDirection ? (
+          <img
+            src={getCrestPath(team.isoCode)}
+            alt=""
+            className={`circle-points__confederation-badge${
+              team.isoCode.toLowerCase() === "che"
+                ? " circle-points__confederation-badge--round"
+                : ""
+            }`}
+            draggable={false}
+            style={
+              {
+                "--badge-dx": radialDirection.x,
+                "--badge-dy": radialDirection.y,
+              } as CSSProperties
+            }
+          />
+        ) : null}
       </span>
       {visible
         ? createPortal(
@@ -606,12 +636,15 @@ export function CirclePoints({
       teamState === "eliminated"
         ? getPairWinner(ringIndex as PlayableRing, pairIndex, pairWinners)
         : null;
+    const radialDirection = isFirstRing ? getRadialDirection(point) : null;
     const flagElement = shouldRenderFlag ? (
       <FlagWithTooltip
         team={actualTeam}
         side={tooltipSide}
         inactive={teamState === "eliminated"}
         beatBy={beatBy}
+        showConfederation={isFirstRing}
+        radialDirection={radialDirection}
       />
     ) : null;
     const selectLabel = `Select ${actualTeam?.name ?? actualTeam?.isoCode}`;

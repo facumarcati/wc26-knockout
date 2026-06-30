@@ -2,7 +2,7 @@
   --flag-size: 52px;
   color: var(--dot-color);
   position: relative;
-  width: min(calc(100% - 64px), min(calc(100vh - 160px), 1000px));
+  width: min(calc(100% - 64px), min(calc(100vh - 200px), 1000px));
   aspect-ratio: 1;
   margin: 0 auto;
 }
@@ -302,4 +302,25 @@ button.circle-points__point {
 .circle-points__tooltip--visible {
   opacity: 1;
   visibility: visible;
+}
+
+.circle-points__confederation-badge {
+  --badge-distance: calc(var(--flag-size) / 2 + 32px);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 3;
+  transform: translate(
+    calc(-50% + var(--badge-dx) * var(--badge-distance)),
+    calc(-50% + var(--badge-dy) * var(--badge-distance))
+  );
+}
+
+.circle-points__confederation-badge--round {
+  border-radius: 50%;
+  object-fit: cover;
 }

@@ -568,17 +568,11 @@ export function CirclePoints({
     const travelPosition = travelPositions[currentSlotKey];
     const isTraveling = isAdvancing && Boolean(travelPosition);
     const showTeamDot = Boolean(
-      actualTeam &&
-      (isFirstRing || isPlayable) &&
-      (!isWinner || showChampionshipWinner) &&
-      !isAdvancing,
+      actualTeam && (isFirstRing || isPlayable) && !isAdvancing,
     );
     const showStructuralDot = !showTeamDot && !isFirstRing;
     const shouldRenderFlag = Boolean(
-      actualTeam &&
-      (isFirstRing || isPlayable) &&
-      (!isWinner || isAdvancing || showChampionshipWinner) &&
-      !isTraveling,
+      actualTeam && (isFirstRing || isPlayable) && !isTraveling,
     );
     const isSelectable =
       isPlayable &&

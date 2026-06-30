@@ -558,13 +558,13 @@ export function CirclePoints({
         ? getTeamState(ringIndex, slotIndex, slotTeams, pairWinners)
         : "idle";
     const isAdvancing = advancingFromSlots.has(currentSlotKey);
-    const isWinner = teamState === "winner";
-    const isChampionshipRing = ringIndex === 5;
-    const championshipSettled = Boolean(
-      isChampionshipRing && getPairWinner(5, pairIndex, pairWinners),
-    );
-    const showChampionshipWinner =
-      isChampionshipRing && isWinner && championshipSettled;
+    // const isWinner = teamState === "winner";
+    // const isChampionshipRing = ringIndex === 5;
+    // const championshipSettled = Boolean(
+    //   isChampionshipRing && getPairWinner(5, pairIndex, pairWinners),
+    // );
+    // const showChampionshipWinner =
+    //   isChampionshipRing && isWinner && championshipSettled;
     const travelPosition = travelPositions[currentSlotKey];
     const isTraveling = isAdvancing && Boolean(travelPosition);
     const showTeamDot = Boolean(

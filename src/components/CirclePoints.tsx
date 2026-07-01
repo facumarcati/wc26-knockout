@@ -17,14 +17,18 @@ import {
   getTeamState,
   isPlayableRing,
   NEXT_RING,
+  PLAYABLE_RINGS,
   RING_COUNTS,
   pairKey,
   selectPairWinner,
   slotKey,
+  getPairIndices,
+  getPairCount,
   type DrawPosition,
   type PlayableRing,
   type Team,
 } from "../lib/drawTree";
+import { getTeamColor } from "../lib/teamColors";
 import { useHoverIntent } from "../hooks/useHoverIntent";
 import { TeamFlag } from "./TeamFlag";
 import { AdvanceAnimator } from "./TravelingTeam";
@@ -433,6 +437,47 @@ export function CirclePoints({
       }),
     [advancingTeams, ringGeometry],
   );
+  const highlightedPaths = useMemo(() => {
+    const paths: { key: string; d: string; isoCode: string }[] = [];
+
+    for (const ringIndex of PLAYABLE_RINGS) {
+      const pairCount = getPairCount(ringIndex);
+
+      for (let pairIndex = 0; pairIndex < pairCount; pairIndex += 1) {
+        const key = pairKey(ringIndex, pairIndex);
+        const winner = pairWinners[key];
+        if (!winner) continue;
+
+        const [slotA, slotB] = getPairIndices(ringIndex, pairIndex);
+        const teamA = slotTeams[slotKey(ringIndex, slotA)];
+        const teamB = slotTeams[slotKey(ringIndex, slotB)];
+
+        const winnerSlotIndex =
+          teamA?.isoCode === winner.isoCode
+            ? slotA
+            : teamB?.isoCode === winner.isoCode
+              ? slotB
+              : null;
+
+        if (winnerSlotIndex === null) continue;
+
+        const d = buildAdvancePath({
+          ringIndex,
+          winnerSlotIndex,
+          ringPoints: ringGeometry,
+          getRingRadius: (r) => getRingRadius(r, ringRadiusOffset),
+          getPairArcMidpoint: (p, r) =>
+            getPairArcMidpoint(p, r, ringRadiusOffset),
+        });
+
+        if (d) {
+          paths.push({ key, d, isoCode: winner.isoCode });
+        }
+      }
+    }
+
+    return paths;
+  }, [pairWinners, slotTeams, ringGeometry, ringRadiusOffset]);
 
   useEffect(() => {
     setAdvancingTeams((current) =>
@@ -803,6 +848,14 @@ export function CirclePoints({
             />
           );
         })}
+        {highlightedPaths.map(({ key, d, isoCode }) => (
+          <path
+            key={`highlight-${key}`}
+            d={d}
+            className="circle-points__connector-highlight"
+            style={{ stroke: getTeamColor(isoCode) } as CSSProperties}
+          />
+        ))}
       </svg>
       <div className="circle-points__trophy" aria-hidden="true">
         <picture>

@@ -23,6 +23,11 @@
   fill: none;
 }
 
+.circle-points__connector path.circle-points__connector-highlight {
+  stroke-width: 0.35;
+  stroke-linecap: round;
+}
+
 .circle-points__trophy {
   position: absolute;
   left: 50%;

@@ -33,8 +33,43 @@
   user-select: none;
 }
 
+.circle-points__trophy::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 280px;
+  height: 280px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 200, 110, 0.55) 0%,
+    rgba(255, 170, 70, 0.28) 35%,
+    rgba(255, 170, 70, 0) 70%
+  );
+  filter: blur(6px);
+  z-index: -1;
+}
+
+.circle-points__trophy::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 50px;
+  height: 10px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(2px);
+  z-index: -1;
+}
+
 .circle-points__trophy img {
-  width: 40px;
+  width: 52px;
   height: auto;
   display: block;
   mix-blend-mode: var(--trophy-blend-mode);

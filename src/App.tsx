@@ -238,14 +238,6 @@ function App() {
           <button
             type="button"
             className="app-action-btn"
-            disabled={!hasChanges || isSharing}
-            onClick={handleShare}
-          >
-            Share
-          </button>
-          <button
-            type="button"
-            className="app-action-btn"
             onClick={handleReset}
           >
             Reset

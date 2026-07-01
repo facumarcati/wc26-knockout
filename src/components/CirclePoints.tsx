@@ -807,10 +807,10 @@ export function CirclePoints({
       <div className="circle-points__trophy" aria-hidden="true">
         <picture>
           <source
-            srcSet="/img/trophy-cup.png"
+            srcSet="/img/world-cup-trophy.png"
             media="(prefers-color-scheme: dark)"
           />
-          <img src="/img/trophy-cup.png" alt="" />
+          <img src="/img/world-cup-trophy.png" alt="" />
         </picture>
       </div>
       {rings.map((ring) => (

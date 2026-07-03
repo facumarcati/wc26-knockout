@@ -361,6 +361,15 @@ button.circle-points__point {
 }
 
 .circle-points__confederation-badge--round {
-  border-radius: 50%;
-  object-fit: cover;
+  width: 60px;
+  height: 60px;
 }
+
+/* Opaca los escudos de las selecciones eliminadas en 16avos */
+/* .circle-points__confederation-badge--inactive {
+  opacity: 0.4;
+  filter: grayscale(1) saturate(0.7);
+  transition:
+    opacity 0.4s ease,
+    filter 0.4s ease;
+} */

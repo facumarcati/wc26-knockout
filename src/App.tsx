@@ -11,52 +11,52 @@ import type { Team } from "./lib/drawTree";
 import "./App.css";
 
 const TEAMS = [
-  { isoCode: "BRA", name: "Brazil" },
-  { isoCode: "JPN", name: "Japan" },
+  { isoCode: "BRA", name: "Brasil" },
+  { isoCode: "JPN", name: "Japón" },
 
-  { isoCode: "CIV", name: "Côte d'Ivoire" },
-  { isoCode: "NOR", name: "Norway" },
+  { isoCode: "CIV", name: "Costa de Marfil" },
+  { isoCode: "NOR", name: "Noruega" },
 
   { isoCode: "MEX", name: "Mexico" },
   { isoCode: "ECU", name: "Ecuador" },
 
-  { isoCode: "GB-ENG", name: "England" },
+  { isoCode: "ENG", name: "Inglaterra" },
   { isoCode: "COD", name: "DR Congo" },
 
   { isoCode: "ARG", name: "Argentina" },
-  { isoCode: "CPV", name: "Cape Verde" },
+  { isoCode: "CPV", name: "Cabo Verde" },
 
   { isoCode: "AUS", name: "Australia" },
-  { isoCode: "EGY", name: "Egypt" },
+  { isoCode: "EGY", name: "Egipto" },
 
-  { isoCode: "CHE", name: "Switzerland" },
-  { isoCode: "DZA", name: "Algeria" },
+  { isoCode: "CHE", name: "Suiza" },
+  { isoCode: "DZA", name: "Argelia" },
 
   { isoCode: "COL", name: "Colombia" },
   { isoCode: "GHA", name: "Ghana" },
 
   { isoCode: "SEN", name: "Senegal" },
-  { isoCode: "BEL", name: "Belgium" },
+  { isoCode: "BEL", name: "Bélgica" },
 
-  { isoCode: "USA", name: "United States" },
-  { isoCode: "BIH", name: "Bosnia and Herzegovina" },
+  { isoCode: "USA", name: "Estados Unidos" },
+  { isoCode: "BIH", name: "Bosnia & Herzegovina" },
 
-  { isoCode: "ESP", name: "Spain" },
+  { isoCode: "ESP", name: "España" },
   { isoCode: "AUT", name: "Austria" },
 
   { isoCode: "PRT", name: "Portugal" },
-  { isoCode: "HRV", name: "Croatia" },
+  { isoCode: "HRV", name: "Croacia" },
 
-  { isoCode: "NLD", name: "Netherlands" },
-  { isoCode: "MAR", name: "Morocco" },
+  { isoCode: "NLD", name: "Holanda" },
+  { isoCode: "MAR", name: "Marruecos" },
 
   { isoCode: "CAN", name: "Canada" },
-  { isoCode: "ZAF", name: "South Africa" },
+  { isoCode: "ZAF", name: "Sudáfrica" },
 
-  { isoCode: "FRA", name: "France" },
-  { isoCode: "SWE", name: "Sweden" },
+  { isoCode: "FRA", name: "Francia" },
+  { isoCode: "SWE", name: "Suecia" },
 
-  { isoCode: "DEU", name: "Germany" },
+  { isoCode: "DEU", name: "Alemania" },
   { isoCode: "PRY", name: "Paraguay" },
 ] as const;
 

@@ -306,7 +306,7 @@ function FlagWithTooltip({
               team.isoCode.toLowerCase() === "che"
                 ? " circle-points__confederation-badge--round"
                 : ""
-            }`}
+            }${inactive ? " circle-points__confederation-badge--inactive" : ""}`}
             draggable={false}
             style={
               {

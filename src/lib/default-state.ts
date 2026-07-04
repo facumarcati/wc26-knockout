@@ -26,7 +26,7 @@ export const DEFAULT_DRAW_STATE: DrawState = {
     // "2-pair-3": "COL" "CHE",
     // "2-pair-4": "BEL" "USA",
     // "2-pair-5": "ESP" "PRT",
-    // "2-pair-6": "MAR" "CAN",
-    // "2-pair-7": "FRA" "PRY",
+    "2-pair-6": "MAR",
+    "2-pair-7": "FRA",
   },
 };

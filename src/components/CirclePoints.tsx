@@ -478,6 +478,31 @@ export function CirclePoints({
 
     return paths;
   }, [pairWinners, slotTeams, ringGeometry, ringRadiusOffset]);
+  const eliminatedTeams = useMemo(() => {
+    const eliminated = new Set<string>();
+
+    for (const ringIndex of PLAYABLE_RINGS) {
+      const pairCount = getPairCount(ringIndex);
+
+      for (let pairIndex = 0; pairIndex < pairCount; pairIndex += 1) {
+        const winner = pairWinners[pairKey(ringIndex, pairIndex)];
+        if (!winner) continue;
+
+        const [slotA, slotB] = getPairIndices(ringIndex, pairIndex);
+        const teamA = slotTeams[slotKey(ringIndex, slotA)];
+        const teamB = slotTeams[slotKey(ringIndex, slotB)];
+
+        if (teamA && teamA.isoCode !== winner.isoCode) {
+          eliminated.add(teamA.isoCode);
+        }
+        if (teamB && teamB.isoCode !== winner.isoCode) {
+          eliminated.add(teamB.isoCode);
+        }
+      }
+    }
+
+    return eliminated;
+  }, [pairWinners, slotTeams]);
 
   useEffect(() => {
     setAdvancingTeams((current) =>
@@ -682,11 +707,15 @@ export function CirclePoints({
         ? getPairWinner(ringIndex as PlayableRing, pairIndex, pairWinners)
         : null;
     const radialDirection = isFirstRing ? getRadialDirection(point) : null;
+    const isEliminated = actualTeam
+      ? eliminatedTeams.has(actualTeam.isoCode)
+      : false;
+
     const flagElement = shouldRenderFlag ? (
       <FlagWithTooltip
         team={actualTeam}
         side={tooltipSide}
-        inactive={teamState === "eliminated"}
+        inactive={isEliminated}
         beatBy={beatBy}
         showConfederation={isFirstRing}
         radialDirection={radialDirection}
@@ -848,14 +877,22 @@ export function CirclePoints({
             />
           );
         })}
-        {highlightedPaths.map(({ key, d, isoCode }) => (
-          <path
-            key={`highlight-${key}`}
-            d={d}
-            className="circle-points__connector-highlight"
-            style={{ stroke: getTeamColor(isoCode) } as CSSProperties}
-          />
-        ))}
+        {highlightedPaths.map(({ key, d, isoCode }) => {
+          const isEliminated = eliminatedTeams.has(isoCode);
+
+          return (
+            <path
+              key={`highlight-${key}`}
+              d={d}
+              className={`circle-points__connector-highlight${
+                isEliminated
+                  ? " circle-points__connector-highlight--eliminated"
+                  : ""
+              }`}
+              style={{ stroke: getTeamColor(isoCode) } as CSSProperties}
+            />
+          );
+        })}
       </svg>
       <div className="circle-points__trophy" aria-hidden="true">
         <picture>

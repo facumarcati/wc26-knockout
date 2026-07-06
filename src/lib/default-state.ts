@@ -20,8 +20,8 @@ export const DEFAULT_DRAW_STATE: DrawState = {
     "0-pair-14": "FRA",
     "0-pair-15": "PRY",
 
-    // "2-pair-0": "BRA" "NOR",
-    // "2-pair-1": "ENG" "MEX",
+    "2-pair-0": "NOR",
+    "2-pair-1": "ENG",
     // "2-pair-2": "ARG" "EGY",
     // "2-pair-3": "COL" "CHE",
     // "2-pair-4": "BEL" "USA",
